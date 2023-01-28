@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbarMenu {
+    background-color: #000 !important;
+}
+
+.navbar ul li a {
+    color: #fcfcfc;
+}
