@@ -4,10 +4,14 @@
     box-sizing: border-box;
 }
 
-.navbarMenu {
-    background-color: #000 !important;
+.navbar {
+    background-color: rgb(139, 139, 139) !important;
 }
 
-.navbar ul li a {
+.nav-link {
     color: #fcfcfc;
+}
+
+.nav-link:hover {
+    color: #fff;
 }
