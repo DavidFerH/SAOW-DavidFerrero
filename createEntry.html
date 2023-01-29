@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revista online UI1 - Crear nueva entrada</title>
+    <title>Revista online UI1</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./src/images/favicon.png">
     <!-- Bootstrap 5 CSS stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="./src/css/createEntry.css">
 </head>
 <body>
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#"><img src="./src/images/logo.png" alt="Logo" style="width: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,7 +33,33 @@
         </div>
     </nav>
 
-    <h3>Bienvenidos a la revista online de la Universidad Isabel I</h3>
+    <!-- Nav Tab with forms -->
+    <div class="container-fluid d-flex">
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="d-flex align-items-start">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-magazine-tab" data-bs-toggle="pill" data-bs-target="#v-pills-magazine" type="button" role="tab" aria-controls="v-pills-magazine" aria-selected="true">Añadir revista</button>
+                        <button class="nav-link" id="v-pills-article-tab" data-bs-toggle="pill" data-bs-target="#v-pills-article" type="button" role="tab" aria-controls="v-pills-article" aria-selected="false">Añadir articulo</button>
+                        <button class="nav-link disabled" id="v-pills-manageMagazines-tab" data-bs-toggle="pill" data-bs-target="#v-pills-manageMagazines" type="button" role="tab" aria-controls="v-pills-manageMagazines" aria-selected="false">Gestionar revistas</button>
+                        <button class="nav-link disabled" id="v-pills-manageArticles-tab" data-bs-toggle="pill" data-bs-target="#v-pills-manageArticles" type="button" role="tab" aria-controls="v-pills-manageArticles" aria-selected="false">Gestionar articulos</button>
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Tab pane to add a magazine -->
+                        <div class="tab-pane fade show active" id="v-pills-magazine" role="tabpanel" aria-labelledby="v-pills-magazine-tab">
+                            <h3>Formulario para añadir una nueva revista científica</h3>
+                        </div>
+                        <!-- Tab pane to add an article -->
+                        <div class="tab-pane fade" id="v-pills-article" role="tabpanel" aria-labelledby="v-pills-article-tab">
+                            <h3>Formulario para añadir un nuevo artículo científico</h3>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-manageMagazines" role="tabpanel" aria-labelledby="v-pills-manageMagazines-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-manageArticles" role="tabpanel" aria-labelledby="v-pills-manageArticles-tab">...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JavaScript with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

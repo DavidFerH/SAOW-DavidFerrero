@@ -1,0 +1,46 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(226, 226, 226);
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #fff !important;
+}
+
+.nav-link {
+    color: #000;
+}
+
+.nav-link:hover {
+    color: rgb(88, 88, 88);
+}
+
+/* Nav tabs styles*/
+.nav-pills .nav-link.active {
+    background-color: #e4004f !important;
+}
+
+/* Tab content */
+.tab-content {
+    width: 90vw;
+    min-height: 75vh;
+    border: 1px solid rgb(65, 65, 65);
+    border-radius: 8px;
+}
+
+#v-pills-magazine {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#v-pills-article {
+    text-align: center;
+    margin-top: 15px;
+}

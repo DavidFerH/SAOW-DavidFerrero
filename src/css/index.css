@@ -1,17 +1,23 @@
+/* Global styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.navbar {
-    background-color: rgb(139, 139, 139) !important;
+body {
+    background-color: rgb(226, 226, 226);
 }
 
+.navbar {
+    background-color: #fff !important;
+}
+
+/* Navbar styles */
 .nav-link {
-    color: #fcfcfc;
+    color: #000;
 }
 
 .nav-link:hover {
-    color: #fff;
+    color: rgb(88, 88, 88);
 }
