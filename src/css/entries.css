@@ -1,0 +1,23 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(226, 226, 226);
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #fff !important;
+}
+
+.nav-link {
+    color: #000;
+}
+
+.nav-link:hover {
+    color: rgb(88, 88, 88);
+}
