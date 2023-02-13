@@ -1,15 +1,13 @@
 <?php
-    $name = $_REQUEST['name'];
-    $surname = $_REQUEST['surname'];
+    include ('./ArticleUtils.php');
+    $articleUtils = new ArticleUtils();
+
+    $idAutor = $_REQUEST['author'];
     $date = $_REQUEST['publicationDate'];
     $title = $_REQUEST['title'];
     $article = $_REQUEST['article'];
 
-    echo "Name: ". $name . " Surname: " . $surname;
-    echo "<br>";
-    echo "Date: " . $date;
-    echo "<br>";
-    echo "Title: " . $title;
-    echo "<br>";
-    echo "Article : " . $article;
+    $articleUtils->AddArticle($idAutor, $date, $title, $article);
+
+    header("Location: http://localhost/SAOW%20Codigo/ActividadEvaluable/createEntry.php");
 ?>
