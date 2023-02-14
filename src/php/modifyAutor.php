@@ -1,10 +1,10 @@
 <?php
-    include ('./ArticleUtils.php');
+    include ('./AuthorUtils.php');
     include './ConectionCredentials.php';
 
-    $articleUtils = new ArticleUtils();
+    $authorUtils = new AuthorUtils();
 
-    $cod_art = $_REQUEST['cod_art'];
+    $IDautor = $_REQUEST['IDautor'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -51,7 +51,7 @@
     <?php                                        
         $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
         
-        $query = "select * from articulos ar, autor_articulos aa, autor au where ar.COD_ART = '$cod_art' and ar.COD_ART = aa.COD_ART and aa.DNI = au.DNI";
+        $query = "select * from autor where DNI = '$IDautor'";
         $data = mysqli_query($mysqli, $query);
         $data = $data->fetch_assoc();
 
@@ -59,43 +59,35 @@
     ?>
 
     <!-- Edit article -->
-    <h3 class="text-center mt-4">Formulario para modificar un artículo científico</h3>
+    <h3 class="text-center mt-4">Formulario para modificar un autor</h3>
     <!-- Form to add a new article -->
-    <form class="row needs-validation justify-content-center mt-4" action="./processModifyArticle.php" method="post">
-        <div class="col-5">
-        <label for="author">Seleccione el autor</label>
-        <select id="author" class="form-select" name="author" disabled>
-            <?php echo "<option>" . $data['NOMBRE'] . " " . $data["APELLIDOS"] . "</option>"; ?>
-        </select>
+    <form class="row needs-validation justify-content-center mt-4" action="./processModifyAuthor.php" method="post">
+        <div class="col-4">
+            <input type="text" class="form-control" name="DNI" value="<?php echo $data['DNI'] ?>" aria-label="DNI" required>
         </div>
-        <div class="col-5">
-            
+        <div class="col-4">
+            <input type="text" class="form-control" name="nombre" value="<?php echo $data['NOMBRE'] ?>" aria-label="Nombre" required>
         </div>
-        <div class="col-5 mt-2">
-            <input type="date" class="form-control" name="publicationDate" aria-label="Fecha de publicacion" value="<?php echo $data["FECHA_PUB"] ?>" disabled required>
+        <div class="col-3">
+            <input type="text" class="form-control" name="apellidos" value="<?php echo $data['APELLIDOS'] ?>" aria-label="Apellidos" required>
         </div>
-        <div class="col-5 mt-2">
-            <input type="hidden" name="cod_art" value="<?php echo $data["COD_ART"] ?>">
-        </div>
-        <div class="col-10 mt-2">
-            <input type="text" class="form-control" name="title" value="<?php echo $data["TITULO"] ?>" aria-label="Titulo del articulo" required>
-        </div>
-        <div class="col-10 mt-2">
+        <div class="col-8 mt-2">
             <div class="form-floating">
-                <textarea class="form-control" name="article" id="content" style="height: 400px" required><?php echo $data["CONTENIDO"] ?></textarea>
-                <label for="floatingTextarea2">Cuerpo del articulo</label>
+                <textarea class="form-control" name="descripcion" id="descripcion" style="height: 400px" required><?php echo $data['DESCRIPCION'] ?></textarea>
+                <label for="floatingTextarea2">Descripcion del autor</label>
             </div>
         </div>
+        <div class="col-3 mt-2"></div>
         <div class="col-4">
             <button type="submit" class="btn submitBtn">Enviar</button>
         </div>
     </form>
-    <form action="./deleteArticle.php" method="post">
+    <form action="./deleteAuthor.php" method="post">
         <div class="col-1 mt-2">
-            <input type="hidden" name="cod_art" value="<?php echo $data["COD_ART"] ?>">
+            <input type="hidden" name="DNI" value="<?php echo $data["DNI"] ?>">
         </div>
         <div class="col-4">
-            <button type="submit" class="btn btn-danger">Eliminar articulo</button>
+            <button type="submit" class="btn btn-danger">Eliminar autor</button>
         </div>
     </form>
 

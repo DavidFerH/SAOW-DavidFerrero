@@ -1,3 +1,6 @@
+<?php
+    include './src/php/ConectionCredentials.php'
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,7 +43,46 @@
         </div>
     </nav>
 
+    <div class="container-fluid magazinesMainContainer">
+        <div class="row justify-content-center mt-4">
+            <div class="col-8">
+            <?php
+                $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
+                
+                $query = "SELECT * FROM revistas";
+                $revistas = mysqli_query($mysqli, $query);
+                
+                while($revista = $revistas->fetch_assoc()) {
+                    $cod_rev = $revista['COD_REV'];
+                    $titulo = $revista['TITULO'];
+                    $numero = $revista['NUMERO'];
+                    $portada = $revista['PORTADA'];
+
+                    $query = "SELECT * FROM articulos WHERE COD_REV = $cod_rev";
+                    $articulos = mysqli_query($mysqli, $query);
+
+                    echo "<div class='magazineContainer'>" .
+                        "<img src=" . $portada . ">" . 
+                        "<h4>$titulo</h4>".
+                        "<h5>Articulos relacionados: </h5>"
+                        ?> <ul>
+                        <?php
+                            while($articulo = $articulos->fetch_assoc()) {
+                                echo "<li>" . $articulo['TITULO'] . "</li>";
+                            }
+                        ?>
+                    </ul>
+                    </div>
+                    <?php
+                    
+                }
+
+                mysqli_close($mysqli);
+            ?>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JavaScript with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
-</html>

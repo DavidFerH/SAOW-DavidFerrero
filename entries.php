@@ -1,3 +1,6 @@
+<?php
+    include './src/php/ConectionCredentials.php'
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,7 +16,7 @@
     <link rel="stylesheet" href="./src/css/entries.css">
 </head>
 <body>
-    <<!-- NavBar -->
+    <!-- NavBar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php"><img src="./src/images/logo.png" alt="Logo" style="width: 50px;"></a>
@@ -39,6 +42,49 @@
             </div>
         </div>
     </nav>
+
+    <div class="container-fluid articlesMainContainer">
+        <div class="row justify-content-center mt-4">
+            <div class="col-8">
+            <?php
+                $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
+                
+                $query = "SELECT * FROM articulos";
+                $articulos = mysqli_query($mysqli, $query);
+                
+                while($articulo = $articulos->fetch_assoc()) {
+                    $cod_art = $articulo['COD_ART'];
+                    $titulo = $articulo['TITULO'];
+                    $contenido = $articulo['CONTENIDO'];
+
+                    $query = "SELECT * FROM autor_articulos WHERE COD_ART = $cod_art";
+                    $autor_articulos = mysqli_query($mysqli, $query);
+                    $autor_articulos = $autor_articulos->fetch_assoc();
+
+                    $idAutor = $autor_articulos['DNI'];
+                    $fechaPub = $autor_articulos['FECHA_PUB'];
+
+                    $query = "SELECT * FROM autor WHERE DNI = '$idAutor'";
+                    $autor = mysqli_query($mysqli, $query);
+                    $autor = $autor->fetch_assoc();
+
+                    $nombreAutor = $autor['NOMBRE'];
+                    $apellidosAutor = $autor['APELLIDOS'];
+
+
+                    echo "<div class='articleContainer'>" . 
+                        "<h4>Titulo - " . $titulo . "<h4>" .
+                        "<p>" . $contenido . "</p>" .
+                        "<p>" . $nombreAutor . " " . $apellidosAutor . "</p>" . 
+                        "<p>" . $fechaPub . "</p>"
+                    . "</div>";
+                }
+
+                mysqli_close($mysqli);
+            ?>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JavaScript with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

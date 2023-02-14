@@ -14,15 +14,5 @@
 
     $magazineUtils->createMagazine($title, $number, $editorial, $date, $coverPath);
 
-    // header("Location: http://localhost/SAOW%20Codigo/ActividadEvaluable/createEntry.php");
-
-    echo "Title: ". $title;
-    echo "<br>";
-    echo "Editorial: " . $editorial;
-    echo "<br>";
-    echo "Numero: " . $number;
-    echo "<br>";
-    echo "Fecha : " . $date;
-    echo "<br>";
-    echo "Ruta: " . $coverPath;
+    header("Location: http://localhost/SAOW%20Codigo/ActividadEvaluable/createEntry.php");
 ?>

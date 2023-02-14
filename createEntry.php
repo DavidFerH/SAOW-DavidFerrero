@@ -1,3 +1,6 @@
+<?php
+    include './src/php/ConectionCredentials.php'
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -50,7 +53,8 @@
                         <button class="nav-link" id="v-pills-magazine-tab" data-bs-toggle="pill" data-bs-target="#v-pills-magazine" type="button" role="tab" aria-controls="v-pills-magazine" aria-selected="false">Añadir revista</button>
                         <button class="nav-link" id="v-pills-authors-tab" data-bs-toggle="pill" data-bs-target="#v-pills-authors" type="button" role="tab" aria-controls="v-pills-authors" aria-selected="false">Añadir autor</button>
                         <button class="nav-link" id="v-pills-manageArticles-tab" data-bs-toggle="pill" data-bs-target="#v-pills-manageArticles" type="button" role="tab" aria-controls="v-pills-manageArticles" aria-selected="false">Gestionar articulos</button>
-                        <button class="nav-link disabled" id="v-pills-manageMagazines-tab" data-bs-toggle="pill" data-bs-target="#v-pills-manageMagazines" type="button" role="tab" aria-controls="v-pills-manageMagazines" aria-selected="false">Gestionar revistas</button>
+                        <button class="nav-link" id="v-pills-manageMagazines-tab" data-bs-toggle="pill" data-bs-target="#v-pills-manageMagazines" type="button" role="tab" aria-controls="v-pills-manageMagazines" aria-selected="false">Gestionar revistas</button>
+                        <button class="nav-link" id="v-pills-manageAuthors-tab" data-bs-toggle="pill" data-bs-target="#v-pills-manageAuthors" type="button" role="tab" aria-controls="v-pills-manageAuthors" aria-selected="false">Gestionar autores</button>
                     </div>
                     <div class="tab-content" id="v-pills-tabContent">
                         <!-- Tab pane to add an article -->
@@ -61,20 +65,19 @@
                                 <div class="col-5">
                                 <label for="author">Seleccione el autor</label>
                                 <select id="author" class="form-select" name="author" aria-label="Default select example">
-                                    <?php
-                                        include './src/php/ArticleUtils.php';
-                                        $articleUtils = new ArticleUtils();
+                                    <?php                                        
+                                        $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
                                         
-                                        $authors = $articleUtils->QueryAuthors();
+                                        $query = "SELECT * FROM AUTOR";
+                                        $authors = mysqli_query($mysqli, $query);
+                            
+                                        mysqli_close($mysqli);
 
                                         while($autor = $authors->fetch_assoc()) {
                                             echo "<option value=". $autor['DNI'] .">" . $autor['NOMBRE'] . " " . $autor['APELLIDOS'] . "</option>";
                                         }
-
-                                        unset($articleUtils);
                                     ?>
                                 </select>
-                                    <!-- <input type="text" class="form-control" name="Autor" placeholder="Autor" aria-label="Autor" required> -->
                                 </div>
                                 <div class="col-5">
                                     
@@ -117,7 +120,7 @@
                                 </div>
                                 <div class="col-7 mt-2"></div>
                                 <div class="col-4 mt-2">
-                                    <input type="file" class="form-control" name="coverImage" placeholder="Portada" aria-label="Portada" required>
+                                    <input type="file" class="form-control" name="coverImage" placeholder="Portada" aria-label="Portada">
                                 </div>
                                 <div class="col-7 mt-2"></div>
                                 <div class="col-4">
@@ -155,49 +158,82 @@
                         <!-- Tab pane to manage articles -->
                         <div class="tab-pane fade" id="v-pills-manageArticles" role="tabpanel" aria-labelledby="v-pills-manageArticles-tab">
                             <h3>Formulario para modificar un artículo científico</h3>
-                            <?php
-                                include './src/php/ArticleUtils.php';
-                                $articleUtils = new ArticleUtils();
-
-                                $articles = $articleUtils->QueryArticles();
-
-                                while($article = $articles->fetch_assoc()) {
-                                    echo("Articulo: " . $article["TITULO"]);
-                                }
-
-                                unset($articleUtils);
-                            ?>
-                            <!-- Form to add a new article -->
+                            <!-- Form to select an article -->
                             <form class="row needs-validation justify-content-center mt-4" action="./src/php/modifyArticle.php" method="post">
                                 <div class="col-5">
-                                <label for="articles">Seleccione el artículo a modificar</label>
-                                <select id="articles" class="form-select" name="author" aria-label="Default select example">
-                                    
-                                </select>
-                                    <!-- <input type="text" class="form-control" name="Autor" placeholder="Autor" aria-label="Autor" required> -->
+                                    <label for="articles">Seleccione el artículo a modificar</label>
+                                    <select id="articles" class="form-select" name="cod_art" aria-label="Default select example">
+                                        <?php
+                                            $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
+                                            
+                                            $query = "SELECT * FROM articulos";
+                                            $articulos = mysqli_query($mysqli, $query);
+                                
+                                            mysqli_close($mysqli);
+                                            
+                                            while($articulo = $articulos->fetch_assoc()) {
+                                                echo "<option value=". $articulo['COD_ART'] .">" . $articulo['TITULO'] . "</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
-                                <div class="col-5">
-                                    
-                                </div>
-                                <div class="col-5 mt-2">
-                                    <input type="date" class="form-control" name="publicationDate" placeholder="Fecha de publicacion" aria-label="Fecha de publicacion" required>
-                                </div>
-                                <div class="col-5 mt-2"></div>
-                                <div class="col-10 mt-2">
-                                    <input type="text" class="form-control" name="title" placeholder="Titulo del articulo" aria-label="Titulo del articulo" required>
-                                </div>
-                                <div class="col-10 mt-2">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" name="article" placeholder="Escriba aqui su articulo" id="content" style="height: 400px" required></textarea>
-                                        <label for="floatingTextarea2">Cuerpo del articulo</label>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn submitBtn">Enviar</button>
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <button type="submit" class="btn submitBtn">Enviar</button>
-                                </div>
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-manageMagazines" role="tabpanel" aria-labelledby="v-pills-manageMagazines-tab">...</div>
+                        <!-- Tab pane to manage magazines -->
+                        <div class="tab-pane fade" id="v-pills-manageMagazines" role="tabpanel" aria-labelledby="v-pills-manageMagazines-tab">
+                            <h3>Formulario para modificar una revista científica</h3>
+                            <form class="row needs-validation justify-content-center mt-4" action="./src/php/modifyMagazine.php" method="post">
+                                <div class="col-5">
+                                    <label for="magazines">Seleccione la revista a modificar</label>
+                                    <select id="magazines" class="form-select" name="IDmagazine" aria-label="Default select example">
+                                        <?php
+                                            $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
+                                            
+                                            $query = "SELECT * FROM revistas";
+                                            $revistas = mysqli_query($mysqli, $query);
+                                
+                                            mysqli_close($mysqli);
+                                            
+                                            while($revista = $revistas->fetch_assoc()) {
+                                                echo "<option value=". $revista['COD_REV'] .">" . $revista['TITULO'] . "</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn submitBtn">Enviar</button>
+                                    </div>
+                            </form>
+                        </div>
+                        <!-- Tab pane to manage author -->
+                        <div class="tab-pane fade" id="v-pills-manageAuthors" role="tabpanel" aria-labelledby="v-pills-manageAuthors-tab">
+                            <!-- Form to select an author -->
+                            <form class="row needs-validation justify-content-center mt-4" action="./src/php/modifyAutor.php" method="post">
+                                <div class="col-5">
+                                    <label for="autores">Seleccione el autor a modificar</label>
+                                    <select id="autores" class="form-select" name="IDautor" aria-label="Default select example">
+                                        <?php
+                                            $mysqli = mysqli_connect($server, $user, $password, $DDBB) or die("Error on conection: " . mysqli_connect_error());
+                                            
+                                            $query = "SELECT * FROM autor";
+                                            $autores = mysqli_query($mysqli, $query);
+                                
+                                            mysqli_close($mysqli);
+                                            
+                                            while($autor = $autores->fetch_assoc()) {
+                                                echo "<option value=". $autor['DNI'] .">" . $autor['NOMBRE'] . " " . $autor['APELLIDOS'] . "</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn submitBtn">Enviar</button>
+                                    </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -22,15 +22,21 @@ body {
     color: rgb(88, 88, 88);
 }
 
-/* Articles styles */
-
-.articlesMainContainer {
-    text-align: center;
-    margin-top: 15px;
+/* Nav tabs styles*/
+.nav-pills .nav-link.active {
+    background-color: #e4004f !important;
 }
 
-.articleContainer {
-    border: 1px solid #000;
+/* Tab content */
+.tab-content {
+    width: 90vw;
+    min-height: 75vh;
+    border: 1px solid rgb(65, 65, 65);
     border-radius: 8px;
-    margin-bottom: 15px;
+}
+
+.btn {
+    background-color: #e4004f !important;
+    margin-top: 15px;
+    color: #fff;
 }

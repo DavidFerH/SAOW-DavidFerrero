@@ -44,5 +44,27 @@
             
             return $articulos;
         }
+
+        public function UpdateArticle($title, $article, $cod_art) {
+            include ('Conection.php');
+
+            $mysqli = ddbbConection();
+            
+            $query = "UPDATE articulos set titulo = '$title', contenido = '$article' WHERE COD_ART = '$cod_art'";
+            mysqli_query($mysqli, $query);
+
+            mysqli_close($mysqli);
+        }
+
+        public function DeleteArticle($cod_art) {
+            include ('Conection.php');
+
+            $mysqli = ddbbConection();
+            
+            $query = "DELETE FROM articulos WHERE COD_ART = $cod_art";
+            mysqli_query($mysqli, $query);
+
+            mysqli_close($mysqli);
+        }
     }
 ?>
